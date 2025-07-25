@@ -37,7 +37,7 @@ namespace GestionTareas.MVC.Controllers
         }
 
         // GET: Tareas/Create
-        [Authorize(Roles = "admins")]
+       
         public IActionResult Create()
         {
             return View();

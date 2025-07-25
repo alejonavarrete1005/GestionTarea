@@ -1,48 +1,78 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
+﻿/* Marca de navegación */
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-word;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #4A90E2 !important;
 }
 
+/* Enlaces generales */
 a {
-  color: #0077cc;
+    color: #4A90E2;
+    text-decoration: none;
 }
 
+    a:hover {
+        color: #357ABD;
+        text-decoration: underline;
+    }
+
+/* Botones primarios */
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #4A90E2;
+    border-color: #357ABD;
+    transition: background-color 0.3s ease;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    .btn-primary:hover {
+        background-color: #357ABD;
+        border-color: #2C5E9E;
+    }
+
+/* Pestañas activas */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #4A90E2;
+    border-color: #357ABD;
 }
 
+/* Bordes */
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #dcdcdc;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #dcdcdc;
 }
 
+/* Sombra */
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Botón política */
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
+    padding: 0.5rem 1.2rem;
+    background-color: #F5F5F5;
+    border: 1px solid #ccc;
 }
 
+/* Pie de página */
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: #f8f9fa;
+    text-align: center;
+    color: #6c757d;
 }
+
+
