@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using GestionTareas.Modelos;
+using GestionTareas.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace GestionTareas.Data
 {
@@ -14,8 +14,8 @@ namespace GestionTareas.Data
         {
         }
 
-        public DbSet<GestionTareas.Modelos.Usuario> Usuario { get; set; } = default!;
-        public DbSet<GestionTareas.Modelos.Tarea> Tarea { get; set; } = default!;
-        public DbSet<GestionTareas.Modelos.Proyecto> Proyecto { get; set; } = default!;
+        public DbSet<GestionTareas.Models.Usuario> Usuarios { get; set; } = default!;
+        public DbSet<GestionTareas.Models.Tarea> Tareas { get; set; } = default!;
+        public DbSet<GestionTareas.Models.Proyecto> Proyectos { get; set; } = default!;
     }
 }

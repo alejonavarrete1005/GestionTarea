@@ -1,58 +1,34 @@
-﻿@model GestionTareas.Modelos.Tarea
-
-@{
-    ViewData["Title"] = "Create";
-}
-
-<h1>Create</h1>
-
-<h4>Tarea</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Prioridad" class="control-label"></label>
-                <input asp-for="Prioridad" class="form-control" />
-                <span asp-validation-for="Prioridad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaCreacion" class="control-label"></label>
-                <input asp-for="FechaCreacion" class="form-control" />
-                <span asp-validation-for="FechaCreacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaVencimiento" class="control-label"></label>
-                <input asp-for="FechaVencimiento" class="form-control" />
-                <span asp-validation-for="FechaVencimiento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+﻿@model Tarea
+<h2>Crear Tarea</h2>
+<form asp-action="Create">
+    <div class="form-group">
+        <label>Título</label>
+        <input asp-for="Titulo" class="form-control" />
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <div class="form-group">
+        <label>Descripción</label>
+<textarea asp-for="Descripcion" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Estado</label>
+        <select asp-for="Estado" class="form-control">
+            <option>Pendiente</option>
+            <option>En Progreso</option>
+            <option>Completada</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Prioridad</label>
+        <select asp-for="Prioridad" class="form-control">
+            <option>Baja</option>
+            <option>Media</option>
+            <option>Alta</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Fecha de Vencimiento</label>
+        <input asp-for="FechaVencimiento" type="date" class="form-control" />
+    </div>
+    
+    <button class="btn btn-success">Guardar</button>
+</form>
