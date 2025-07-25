@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using GestionTareas.Data; // Ajusta si tu contexto está en otro namespace
-using GestionTareas.Models;
+using GestionTareas.Data;
 using Microsoft.AspNetCore.Authorization;
+using GestionTareas.Models;
 
-namespace GestionTareas.Controllers
+namespace GestionTareas.MVC.Controllers
 {
     public class TareasController : Controller
     {
-        private readonly GestionTareasContext _context;
+        private readonly GestionTareasMVCContext _context;
 
-        public TareasController(GestionTareasContext context)
+        public TareasController(GestionTareasMVCContext context)
         {
             _context = context;
         }
@@ -18,7 +19,7 @@ namespace GestionTareas.Controllers
         // GET: Tareas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tareas.ToListAsync());
+            return View(await _context.Tarea.ToListAsync());
         }
 
         // GET: Tareas/Details/5
@@ -27,7 +28,7 @@ namespace GestionTareas.Controllers
             if (id == null)
                 return NotFound();
 
-            var tarea = await _context.Tareas.FirstOrDefaultAsync(t => t.Id == id);
+            var tarea = await _context.Tarea.FirstOrDefaultAsync(t => t.Id == id);
 
             if (tarea == null)
                 return NotFound();
@@ -63,7 +64,7 @@ namespace GestionTareas.Controllers
             if (id == null)
                 return NotFound();
 
-            var tarea = await _context.Tareas.FindAsync(id);
+            var tarea = await _context.Tarea.FindAsync(id);
             if (tarea == null)
                 return NotFound();
 
@@ -104,7 +105,7 @@ namespace GestionTareas.Controllers
             if (id == null)
                 return NotFound();
 
-            var tarea = await _context.Tareas.FirstOrDefaultAsync(t => t.Id == id);
+            var tarea = await _context.Tarea.FirstOrDefaultAsync(t => t.Id == id);
             if (tarea == null)
                 return NotFound();
 
@@ -116,10 +117,10 @@ namespace GestionTareas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tarea = await _context.Tareas.FindAsync(id);
+            var tarea = await _context.Tarea.FindAsync(id);
             if (tarea != null)
             {
-                _context.Tareas.Remove(tarea);
+                _context.Tarea.Remove(tarea);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
@@ -127,7 +128,7 @@ namespace GestionTareas.Controllers
 
         private bool TareaExists(int id)
         {
-            return _context.Tareas.Any(e => e.Id == id);
+            return _context.Tarea.Any(e => e.Id == id);
         }
     }
 }

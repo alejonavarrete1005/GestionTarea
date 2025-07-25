@@ -1,22 +1,65 @@
 ﻿@model IEnumerable<Tarea>
-<h2>Tareas</h2>
-<a asp-action="Create" class="btn btn-primary">Nueva Tarea</a>
+@{
+    ViewData["Title"] = "Tarea";
+}
+
+<h1>Tarea</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
-        <tr><th>Título</th><th>Estado</th><th>Prioridad</th><th>Vencimiento</th><th></th></tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prioridad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCreacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaVencimiento)
+            </th>
+
+            <th></th>
+        </tr>
     </thead>
     <tbody>
-        @foreach (var t in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@t.Titulo</td>
-                <td>@t.Estado</td>
-                <td>@t.Prioridad</td>
-                <td>@t.FechaVencimiento.ToShortDateString()</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@t.Id">Detalles</a>
-                    <a asp-action="Edit" asp-route-id="@t.Id">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@t.Id">Eliminar</a>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prioridad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaCreacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaVencimiento)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

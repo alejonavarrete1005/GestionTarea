@@ -1,20 +1,52 @@
 ﻿@model IEnumerable<Usuario>
-<h2>Usuarios Registrados</h2>
+@{
+    ViewData["Title"] = "Usuario";
+}
+
+<h1>Usuario</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Rol</th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCompleto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Correo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clave)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rol)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var u in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@u.NombreCompleto</td>
-                <td>@u.Correo</td>
-                <td>@u.Rol</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Correo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clave)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rol)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
             </tr>
         }
     </tbody>

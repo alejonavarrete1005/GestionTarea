@@ -1,83 +1,156 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GestionTareas.Data;
+using GestionTareas.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace GestionTareas.Controllers
+namespace GestionTareas.MVC.Controllers
 {
     public class ProyectosController : Controller
     {
-        // GET: Proyectos
-        public ActionResult Index()
+        private readonly GestionTareasMVCContext _context;
+
+        public ProyectosController(GestionTareasMVCContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        // GET: Proyectos
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Proyecto.ToListAsync());
         }
 
         // GET: Proyectos/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var proyecto = await _context.Proyecto
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (proyecto == null)
+            {
+                return NotFound();
+            }
+
+            return View(proyecto);
         }
 
         // GET: Proyectos/Create
-        public ActionResult Create()
+        [Authorize(Roles = "admins")]
+        public IActionResult Create()
         {
             return View();
         }
 
         // POST: Proyectos/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion,FechaInicio,FechaFin")] Proyecto proyecto)
         {
-            try
+            if (ModelState.IsValid)
             {
+                _context.Add(proyecto);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(proyecto);
         }
 
         // GET: Proyectos/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var proyecto = await _context.Proyecto.FindAsync(id);
+            if (proyecto == null)
+            {
+                return NotFound();
+            }
+            return View(proyecto);
         }
 
         // POST: Proyectos/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Descripcion,FechaInicio,FechaFin")] Proyecto proyecto)
         {
-            try
+            if (id != proyecto.Id)
             {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(proyecto);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProyectoExists(proyecto.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(proyecto);
         }
 
         // GET: Proyectos/Delete/5
-        public ActionResult Delete(int id)
+        [Authorize(Roles ="admins")]
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var proyecto = await _context.Proyecto
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (proyecto == null)
+            {
+                return NotFound();
+            }
+
+            return View(proyecto);
         }
 
         // POST: Proyectos/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
+            var proyecto = await _context.Proyecto.FindAsync(id);
+            if (proyecto != null)
             {
-                return RedirectToAction(nameof(Index));
+                _context.Proyecto.Remove(proyecto);
             }
-            catch
-            {
-                return View();
-            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool ProyectoExists(int id)
+        {
+            return _context.Proyecto.Any(e => e.Id == id);
         }
     }
 }
