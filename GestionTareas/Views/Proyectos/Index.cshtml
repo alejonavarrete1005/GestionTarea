@@ -18,14 +18,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var proyecto in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@proyecto.Nombre</td>
-                <td>@proyecto.FechaInicio.ToShortDateString()</td>
-                <td>@proyecto.FechaFin.ToShortDateString()</td>
+                <td>@item.Nombre</td>
+                <td>@item.FechaInicio.ToShortDateString()</td>
+                <td>@item.FechaFin.ToShortDateString()</td>
                 <td>
-                    <a asp-action="Editar" asp-route-id="@proyecto.Id" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
                 </td>
             </tr>
         }
